@@ -11,13 +11,18 @@ public class hw {
        Rectangle r = new Rectangle(4,6);
        System.out.println("Площадь прямоугольника со сторонами " + r.a + " и " + r.b + " = " + r.area());
 
-       Point p1 = new Point();
-       Point p2 = new Point();
-       p1.x=2;
-       p1.y=5;
-       p2.x=4;
-       p2.y=1;
-       System.out.println("Расстояние между точками x и y = " + distance(p1,p2));
+       Point p1 = new Point(2,5);
+       Point p2 = new Point(4,1);
+       Point p3 = new Point(0,0);
+       Point p4 = new Point(2,2.23607);
+       Point p5 = new Point(-1,-6);
+       Point p6 = new Point(5,9);
+       Point p7 = new Point(0.4,1.8);
+       System.out.println("Расстояние между точками x и y = " + p1.distance(p2));
+       System.out.println("Расстояние между точками x и y = " + p2.distance(p1));
+       System.out.println("Расстояние между точками x и y = " + p3.distance(p4));
+       System.out.println("Расстояние между точками x и y = " + p5.distance(p6));
+       System.out.println("Расстояние между точками x и y = " + p7.distance(p1));
 
     }
 
@@ -25,10 +30,5 @@ public class hw {
         System.out.println("Hello, " + somebody + "!");
     }
 
-    public static double distance(Point p1, Point p2) {
-        double x = p1.x - p2.x;
-        double y = p1.y - p2.y;
-        return Math.sqrt(x*x+y*y);
-    }
 
 }
