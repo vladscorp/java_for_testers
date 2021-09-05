@@ -1,4 +1,4 @@
-package ru.stqa.jft.addressbook;
+package ru.stqa.jft.addressbook.tests;
 
 import java.util.concurrent.TimeUnit;
 
@@ -6,6 +6,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.annotations.*;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.Select;
+import ru.stqa.jft.addressbook.model.EntryData;
 
 public class EntryCreationTests {
   private WebDriver wd;

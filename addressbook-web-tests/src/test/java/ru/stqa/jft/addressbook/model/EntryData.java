@@ -1,4 +1,4 @@
-package ru.stqa.jft.addressbook;
+package ru.stqa.jft.addressbook.model;
 
 public class EntryData {
     private final String firstname;
