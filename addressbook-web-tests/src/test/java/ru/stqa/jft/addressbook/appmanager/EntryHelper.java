@@ -3,6 +3,7 @@ package ru.stqa.jft.addressbook.appmanager;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import ru.stqa.jft.addressbook.model.EntryData;
 
 import static org.testng.Assert.assertTrue;
 
@@ -40,5 +41,43 @@ public class EntryHelper extends HelperBase {
         } finally {
             acceptNextAlert = true;
         }
+    }
+
+    public void initEntryModification() {
+       // click(By.xpath("//table[@id='maintable']/tbody/tr[3]/td[8]/a/img"));
+        click(By.xpath("//img[@alt='Edit']"));
+    }
+
+
+    public void returnToHomePage() {
+        click(By.linkText("home page"));
+    }
+
+    public void submitEntryCreation() {
+        click(By.xpath("//input[21]"));
+    }
+
+    public void fillEntryForm(EntryData entryData) {
+        type(By.name("firstname"), entryData.getFirstname());
+        type(By.name("middlename"), entryData.getMiddlename());
+        type(By.name("lastname"), entryData.getLastname());
+        type(By.name("nickname"), entryData.getNickname());
+        type(By.name("title"), entryData.getTitle());
+        type(By.name("company"), entryData.getCompany());
+        type(By.name("address"), entryData.getAddress());
+        type(By.name("home"), entryData.getHome());
+        type(By.name("mobile"), entryData.getMobile());
+        type(By.name("email"), entryData.getEmail());
+        select(By.name("bday"), entryData.getBday());
+        select(By.name("bmonth"), entryData.getBmonth());
+        type(By.name("byear"), entryData.getByear());
+    }
+
+    public void gotoEntryPage() {
+        click(By.linkText("add new"));
+    }
+
+    public void submitEntryModification() {
+        click(By.name("update"));
     }
 }
