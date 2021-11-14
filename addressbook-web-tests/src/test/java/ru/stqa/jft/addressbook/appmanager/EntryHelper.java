@@ -3,6 +3,7 @@ package ru.stqa.jft.addressbook.appmanager;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.testng.Assert;
 import ru.stqa.jft.addressbook.model.EntryData;
 
 import static org.testng.Assert.assertTrue;
@@ -57,7 +58,7 @@ public class EntryHelper extends HelperBase {
         click(By.xpath("//input[21]"));
     }
 
-    public void fillEntryForm(EntryData entryData) {
+    public void fillEntryForm(EntryData entryData, boolean creation) {
         type(By.name("firstname"), entryData.getFirstname());
         type(By.name("middlename"), entryData.getMiddlename());
         type(By.name("lastname"), entryData.getLastname());
@@ -71,6 +72,11 @@ public class EntryHelper extends HelperBase {
         select(By.name("bday"), entryData.getBday());
         select(By.name("bmonth"), entryData.getBmonth());
         type(By.name("byear"), entryData.getByear());
+        if (creation) {
+            select(By.name("new_group"), entryData.getGroup());
+        } else {
+            Assert.assertFalse(isElementPresent(By.name("new_group")));
+        }
     }
 
     public void gotoEntryPage() {

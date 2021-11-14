@@ -14,8 +14,9 @@ public class EntryData {
     private final String bday;
     private final String bmonth;
     private final String byear;
+    private final String group;
 
-    public EntryData(String firstname, String middlename, String lastname, String nickname, String title, String company, String address, String home, String mobile, String email, String bday, String bmonth, String byear) {
+    public EntryData(String firstname, String middlename, String lastname, String nickname, String title, String company, String address, String home, String mobile, String email, String bday, String bmonth, String byear, String group) {
         this.firstname = firstname;
         this.middlename = middlename;
         this.lastname = lastname;
@@ -29,6 +30,7 @@ public class EntryData {
         this.bday = bday;
         this.bmonth = bmonth;
         this.byear = byear;
+        this.group = group;
     }
 
     public String getFirstname() {
@@ -81,5 +83,9 @@ public class EntryData {
 
     public String getByear() {
         return byear;
+    }
+
+    public String getGroup() {
+        return group;
     }
 }
