@@ -26,7 +26,7 @@ public class EntryHelper extends HelperBase {
     }
 
     public void selectEntry() {
-        click(By.id("9"));
+        click(By.name("selected[]"));
     }
 
     private String closeAlertAndGetItsText() {
@@ -79,11 +79,22 @@ public class EntryHelper extends HelperBase {
         }
     }
 
-    public void gotoEntryPage() {
+    public void initEntryCreation() {
         click(By.linkText("add new"));
     }
 
     public void submitEntryModification() {
         click(By.name("update"));
+    }
+
+    public void createEntry(EntryData entry, boolean creation) {
+        initEntryCreation();
+        fillEntryForm(entry, creation);
+        submitEntryCreation();
+        returnToHomePage();
+    }
+
+    public boolean thereAnEntry() {
+        return isElementPresent(By.name("entry"));
     }
 }

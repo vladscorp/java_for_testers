@@ -7,6 +7,10 @@ public class EntryModificationTests  extends TestBase {
 
     @Test
     public void testEntryModification() {
+        app.getNavigationHelper().gotoHomePage();
+        if (! app.getEntryHelper().thereAnEntry()) {
+            app.getEntryHelper().createEntry(new EntryData("Ivan", "Aleksandrovich", "Petrov", "vanko", "title", "comp", "блаблабла очень длинный адрес 23", "123345", "123156496879", "wqer@qwe.ru", "16", "September", "1980", "name"), true);
+        }
         app.getEntryHelper().initEntryModification();
         app.getEntryHelper().fillEntryForm(new EntryData("Ivan", "Aleksandrovich", "Petrov", "vanko", "title", "comp", "блаблабла очень длинный адрес 23", "123345", "123156496879", "wqer@qwe.ru", "16", "September", "1980", null), false);
         app.getEntryHelper().submitEntryModification();
