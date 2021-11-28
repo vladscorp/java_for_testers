@@ -1,14 +1,21 @@
 package ru.stqa.jft.addressbook.tests;
 
 
+import org.hamcrest.MatcherAssert;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import ru.stqa.jft.addressbook.model.Entries;
 import ru.stqa.jft.addressbook.model.EntryData;
 import ru.stqa.jft.addressbook.model.GroupData;
+import ru.stqa.jft.addressbook.model.Groups;
 
 import java.util.List;
 import java.util.Set;
+
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.testng.Assert.assertEquals;
 
 public class EntryDeletionTests extends TestBase {
 
@@ -24,15 +31,14 @@ public class EntryDeletionTests extends TestBase {
 
   @Test(enabled = true)
   public void testEntryDeletion() throws Exception {
-    Set<EntryData> before = app.entry().all();
+    Entries before = app.entry().all();
     EntryData deletedEntry = before.iterator().next();
     app.entry().delete(deletedEntry);
     app.goTo().homePage();
-    Set<EntryData> after = app.entry().all();
-    Assert.assertEquals(after.size(), before.size()-1);
+    Entries after = app.entry().all();
+    assertEquals(after.size(), before.size()-1);
+    assertThat(after, equalTo(before.without(deletedEntry)));
 
-    before.remove(deletedEntry);
-    Assert.assertEquals(before, after);
   }
 
 

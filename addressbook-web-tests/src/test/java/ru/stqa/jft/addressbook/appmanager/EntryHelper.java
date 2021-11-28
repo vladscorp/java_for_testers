@@ -5,7 +5,9 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
+import ru.stqa.jft.addressbook.model.Entries;
 import ru.stqa.jft.addressbook.model.EntryData;
+import ru.stqa.jft.addressbook.model.Groups;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -125,8 +127,8 @@ public class EntryHelper extends HelperBase {
     }
 
 
-    public Set<EntryData> all() {
-        Set<EntryData> entries = new HashSet<>();
+    public Entries all() {
+        Entries entries = new Entries();
         List<WebElement> elements = wd.findElements(By.xpath("//tr[@name=\"entry\"]"));
         for (WebElement element : elements) {
             List<WebElement> el = element.findElements(By.tagName("td"));
