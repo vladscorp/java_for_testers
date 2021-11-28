@@ -91,7 +91,7 @@ public class EntryHelper extends HelperBase {
         click(By.name("update"));
     }
 
-    public void createEntry(EntryData entry, boolean creation) {
+    public void create(EntryData entry, boolean creation) {
         initEntryCreation();
         fillEntryForm(entry, creation);
         submitEntryCreation();
@@ -102,7 +102,7 @@ public class EntryHelper extends HelperBase {
         return isElementPresent(By.name("entry"));
     }
 
-    public List<EntryData> getEntryList() {
+    public List<EntryData> list() {
         List<EntryData> entries = new ArrayList<EntryData>();
         List<WebElement> elements = wd.findElements(By.xpath("//tr[@name=\"entry\"]"));
         for (WebElement element : elements) {

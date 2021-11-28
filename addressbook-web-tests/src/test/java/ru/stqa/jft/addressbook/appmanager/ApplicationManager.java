@@ -56,7 +56,7 @@ public class ApplicationManager {
         return navigationHelper;
     }
 
-    public EntryHelper getEntryHelper() {
+    public EntryHelper entry() {
         return entryHelper;
     }
 }

@@ -9,15 +9,15 @@ import java.util.List;
 
 public class EntryCreationTests extends TestBase {
 
-  @Test(enabled = false)
+  @Test(enabled = true)
   public void testEntryCreation() throws Exception {
-    app.goTo().gotoHomePage();
-    List<EntryData> before = app.getEntryHelper().getEntryList();
+    app.goTo().homePage();
+    List<EntryData> before = app.entry().list();
     EntryData entry = new EntryData("Ivan", "Aleksandrovich", "Petrov", "vanko",
             "title", "comp", "блаблабла очень длинный адрес 23", "123345", "123156496879",
             "wqer@qwe.ru", "16", "September", "1980", "name");
-    app.getEntryHelper().createEntry(entry, true);
-    List<EntryData> after = app.getEntryHelper().getEntryList();
+    app.entry().create(entry, true);
+    List<EntryData> after = app.entry().list();
     Assert.assertEquals(after.size(), before.size()+1);
 
     before.add(entry);
