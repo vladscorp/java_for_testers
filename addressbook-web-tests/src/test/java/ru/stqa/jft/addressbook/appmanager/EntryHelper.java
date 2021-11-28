@@ -98,6 +98,19 @@ public class EntryHelper extends HelperBase {
         returnToHomePage();
     }
 
+    public void modify(EntryData entry, int index) {
+        initEntryModification(index);
+        fillEntryForm(entry, false);
+        submitEntryModification();
+        returnToHomePage();
+    }
+
+    public void delete(int index) {
+        selectEntry(index);
+        deleteSelectedEntries();
+        acceptEntryDeleting();
+    }
+
     public boolean thereAnEntry() {
         return isElementPresent(By.name("entry"));
     }
@@ -110,7 +123,7 @@ public class EntryHelper extends HelperBase {
             String lastname = el.get(1).getText();
             String firstname = el.get(2).getText();
             int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
-            EntryData entry = new EntryData(id, firstname, lastname);
+            EntryData entry = new EntryData().withId(id).withFirstname(firstname).withLastname(lastname);
             entries.add(entry);
         }
         return entries;

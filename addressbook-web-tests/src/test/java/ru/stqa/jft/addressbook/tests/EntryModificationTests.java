@@ -14,22 +14,20 @@ public class EntryModificationTests  extends TestBase {
     public void ensurePreconditions() {
         app.goTo().homePage();
         if (! app.entry().thereAnEntry()) {
-            app.entry().create(new EntryData("Ivan", "Aleksandrovich", "Petrov",
-                    "vanko", "title", "comp", "блаблабла очень длинный адрес 23", "123345",
-                    "123156496879", "wqer@qwe.ru", "16", "September", "1980", "name"), true);
+            app.entry().create(new EntryData().withFirstname("Ivan").withMiddlename("Aleksandrovich").withLastname("Petrov").withNickname("vanko")
+                    .withTitle("title").withCompany("comp").withAddress("блаблабла очень длинный адрес 23").withHome("123345").withMobile("123156496879")
+                    .withEmail("wqer@qwe.ru").withBday("16").withBmonth("September").withByear("1980").withGroup("name"), true);
         }
     }
 
     @Test(enabled = true)
     public void testEntryModification() {
         List<EntryData> before = app.entry().list();
-        app.entry().initEntryModification(before.size()-1);
-        EntryData entry = new EntryData("Ivan", "Aleksandrovich", "Petrov",
-                "vanko", "title", "comp", "блаблабла очень длинный адрес 23", "123345",
-                "123156496879", "wqer@qwe.ru", "16", "September", "1980", null);
-        app.entry().fillEntryForm(entry, false);
-        app.entry().submitEntryModification();
-        app.entry().returnToHomePage();
+        EntryData entry = new EntryData().withFirstname("Ivan").withMiddlename("Aleksandrovich").withLastname("Petrov").withNickname("vanko")
+                .withTitle("title").withCompany("comp").withAddress("блаблабла очень длинный адрес 23").withHome("123345").withMobile("123156496879")
+                .withEmail("wqer@qwe.ru").withBday("16").withBmonth("September").withByear("1980");
+        int index = before.size()-1;
+        app.entry().modify(entry, index);
         List<EntryData> after = app.entry().list();
         Assert.assertEquals(after.size(), before.size());
 
@@ -41,4 +39,5 @@ public class EntryModificationTests  extends TestBase {
         after.sort(byId);
         Assert.assertEquals(before, after);
     }
+
 }

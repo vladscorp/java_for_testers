@@ -1,57 +1,21 @@
 package ru.stqa.jft.addressbook.model;
 
 public class EntryData {
-    private int id;
-    private final String firstname;
-    private final String middlename;
-    private final String lastname;
-    private final String nickname;
-    private final String title;
-    private final String company;
-    private final String address;
-    private final String home;
-    private final String mobile;
-    private final String email;
-    private final String bday;
-    private final String bmonth;
-    private final String byear;
-    private final String group;
-
-    public EntryData(String firstname, String middlename, String lastname, String nickname, String title, String company, String address, String home, String mobile, String email, String bday, String bmonth, String byear, String group) {
-        this.id = Integer.MAX_VALUE;
-        this.firstname = firstname;
-        this.middlename = middlename;
-        this.lastname = lastname;
-        this.nickname = nickname;
-        this.title = title;
-        this.company = company;
-        this.address = address;
-        this.home = home;
-        this.mobile = mobile;
-        this.email = email;
-        this.bday = bday;
-        this.bmonth = bmonth;
-        this.byear = byear;
-        this.group = group;
-    }
-
-    public EntryData(int id, String firstname, String lastname) {
-        this.id = id;
-        this.firstname = firstname;
-        this.middlename = null;
-        this.lastname = lastname;
-        this.nickname = null;
-        this.title = null;
-        this.company = null;
-        this.address = null;
-        this.home = null;
-        this.mobile = null;
-        this.email = null;
-        this.bday = null;
-        this.bmonth = null;
-        this.byear = null;
-        this.group = null;
-    }
+    private int id = Integer.MAX_VALUE;
+    private String firstname;
+    private String middlename;
+    private String lastname;
+    private String nickname;
+    private String title;
+    private String company;
+    private String address;
+    private String home;
+    private String mobile;
+    private String email;
+    private String bday;
+    private String bmonth;
+    private String byear;
+    private String group;
 
     public int getId() {
         return id;
@@ -111,6 +75,81 @@ public class EntryData {
 
     public String getGroup() {
         return group;
+    }
+
+    public EntryData withId(int id) {
+        this.id = id;
+        return this;
+    }
+
+    public EntryData withFirstname(String firstname) {
+        this.firstname = firstname;
+        return this;
+    }
+
+    public EntryData withMiddlename(String middlename) {
+        this.middlename = middlename;
+        return this;
+    }
+
+    public EntryData withLastname(String lastname) {
+        this.lastname = lastname;
+        return this;
+    }
+
+    public EntryData withNickname(String nickname) {
+        this.nickname = nickname;
+        return this;
+    }
+
+    public EntryData withTitle(String title) {
+        this.title = title;
+        return this;
+    }
+
+    public EntryData withCompany(String company) {
+        this.company = company;
+        return this;
+    }
+
+    public EntryData withAddress(String address) {
+        this.address = address;
+        return this;
+    }
+
+    public EntryData withHome(String home) {
+        this.home = home;
+        return this;
+    }
+
+    public EntryData withMobile(String mobile) {
+        this.mobile = mobile;
+        return this;
+    }
+
+    public EntryData withEmail(String email) {
+        this.email = email;
+        return this;
+    }
+
+    public EntryData withBday(String bday) {
+        this.bday = bday;
+        return this;
+    }
+
+    public EntryData withBmonth(String bmonth) {
+        this.bmonth = bmonth;
+        return this;
+    }
+
+    public EntryData withByear(String byear) {
+        this.byear = byear;
+        return this;
+    }
+
+    public EntryData withGroup(String group) {
+        this.group = group;
+        return this;
     }
 
     @Override
