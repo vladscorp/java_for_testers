@@ -9,9 +9,9 @@ import java.util.List;
 
 public class EntryModificationTests  extends TestBase {
 
-    @Test
+    @Test(enabled = false)
     public void testEntryModification() {
-        app.getNavigationHelper().gotoHomePage();
+        app.goTo().gotoHomePage();
         if (! app.getEntryHelper().thereAnEntry()) {
             app.getEntryHelper().createEntry(new EntryData("Ivan", "Aleksandrovich", "Petrov",
                     "vanko", "title", "comp", "блаблабла очень длинный адрес 23", "123345",

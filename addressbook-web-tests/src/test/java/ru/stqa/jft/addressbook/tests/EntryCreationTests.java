@@ -9,9 +9,9 @@ import java.util.List;
 
 public class EntryCreationTests extends TestBase {
 
-  @Test
+  @Test(enabled = false)
   public void testEntryCreation() throws Exception {
-    app.getNavigationHelper().gotoHomePage();
+    app.goTo().gotoHomePage();
     List<EntryData> before = app.getEntryHelper().getEntryList();
     EntryData entry = new EntryData("Ivan", "Aleksandrovich", "Petrov", "vanko",
             "title", "comp", "блаблабла очень длинный адрес 23", "123345", "123156496879",
