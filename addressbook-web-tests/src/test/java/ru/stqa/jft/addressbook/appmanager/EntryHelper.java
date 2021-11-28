@@ -8,7 +8,9 @@ import org.testng.Assert;
 import ru.stqa.jft.addressbook.model.EntryData;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import static org.testng.Assert.assertTrue;
 
@@ -34,6 +36,10 @@ public class EntryHelper extends HelperBase {
         wd.findElements(By.name("selected[]")).get(index).click();
     }
 
+    private void selectEntryById(int id) {
+        wd.findElement(By.cssSelector("input[id='" + id + "']")).click();
+    }
+
     private String closeAlertAndGetItsText() {
         try {
             Alert alert = wd.switchTo().alert();
@@ -49,8 +55,9 @@ public class EntryHelper extends HelperBase {
         }
     }
 
-    public void initEntryModification(int index) {
-        wd.findElements(By.xpath("//img[@alt='Edit']")).get(index).click();
+
+    public void initEntryModificationById(int id) {
+        wd.findElement(By.xpath("//a[@href='edit.php?id=" + id + "']")).click();
     }
 
 
@@ -98,25 +105,28 @@ public class EntryHelper extends HelperBase {
         returnToHomePage();
     }
 
-    public void modify(EntryData entry, int index) {
-        initEntryModification(index);
+    public void modify(EntryData entry) {
+        initEntryModificationById(entry.getId());
         fillEntryForm(entry, false);
         submitEntryModification();
         returnToHomePage();
     }
 
-    public void delete(int index) {
-        selectEntry(index);
+
+    public void delete(EntryData entry) {
+        selectEntryById(entry.getId());
         deleteSelectedEntries();
         acceptEntryDeleting();
     }
+
 
     public boolean thereAnEntry() {
         return isElementPresent(By.name("entry"));
     }
 
-    public List<EntryData> list() {
-        List<EntryData> entries = new ArrayList<EntryData>();
+
+    public Set<EntryData> all() {
+        Set<EntryData> entries = new HashSet<>();
         List<WebElement> elements = wd.findElements(By.xpath("//tr[@name=\"entry\"]"));
         for (WebElement element : elements) {
             List<WebElement> el = element.findElements(By.tagName("td"));
@@ -128,4 +138,5 @@ public class EntryHelper extends HelperBase {
         }
         return entries;
     }
+    
 }
