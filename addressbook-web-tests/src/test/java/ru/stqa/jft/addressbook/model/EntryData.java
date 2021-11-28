@@ -1,6 +1,7 @@
 package ru.stqa.jft.addressbook.model;
 
 public class EntryData {
+    private int id;
     private final String firstname;
     private final String middlename;
     private final String lastname;
@@ -17,6 +18,7 @@ public class EntryData {
     private final String group;
 
     public EntryData(String firstname, String middlename, String lastname, String nickname, String title, String company, String address, String home, String mobile, String email, String bday, String bmonth, String byear, String group) {
+        this.id = Integer.MAX_VALUE;
         this.firstname = firstname;
         this.middlename = middlename;
         this.lastname = lastname;
@@ -31,6 +33,28 @@ public class EntryData {
         this.bmonth = bmonth;
         this.byear = byear;
         this.group = group;
+    }
+
+    public EntryData(int id, String firstname, String lastname) {
+        this.id = id;
+        this.firstname = firstname;
+        this.middlename = null;
+        this.lastname = lastname;
+        this.nickname = null;
+        this.title = null;
+        this.company = null;
+        this.address = null;
+        this.home = null;
+        this.mobile = null;
+        this.email = null;
+        this.bday = null;
+        this.bmonth = null;
+        this.byear = null;
+        this.group = null;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public String getFirstname() {
@@ -87,5 +111,32 @@ public class EntryData {
 
     public String getGroup() {
         return group;
+    }
+
+    @Override
+    public String toString() {
+        return "EntryData{" +
+                "id=" + id +
+                ", firstname='" + firstname + '\'' +
+                ", lastname='" + lastname + '\'' +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        EntryData entryData = (EntryData) o;
+
+        if (firstname != null ? !firstname.equals(entryData.firstname) : entryData.firstname != null) return false;
+        return lastname != null ? lastname.equals(entryData.lastname) : entryData.lastname == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = firstname != null ? firstname.hashCode() : 0;
+        result = 31 * result + (lastname != null ? lastname.hashCode() : 0);
+        return result;
     }
 }

@@ -3,8 +3,12 @@ package ru.stqa.jft.addressbook.appmanager;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import ru.stqa.jft.addressbook.model.EntryData;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.testng.Assert.assertTrue;
 
@@ -19,14 +23,15 @@ public class EntryHelper extends HelperBase {
     public void acceptEntryDeleting() {
         acceptNextAlert = true;
         assertTrue(closeAlertAndGetItsText().matches("^Delete 1 addresses[\\s\\S]$"));
+        wd.findElement(By.cssSelector("div.msgbox"));
     }
 
     public void deleteSelectedEntries() {
         click(By.xpath("//input[@value='Delete']"));
     }
 
-    public void selectEntry() {
-        click(By.name("selected[]"));
+    public void selectEntry(int index) {
+        wd.findElements(By.name("selected[]")).get(index).click();
     }
 
     private String closeAlertAndGetItsText() {
@@ -44,9 +49,8 @@ public class EntryHelper extends HelperBase {
         }
     }
 
-    public void initEntryModification() {
-       // click(By.xpath("//table[@id='maintable']/tbody/tr[3]/td[8]/a/img"));
-        click(By.xpath("//img[@alt='Edit']"));
+    public void initEntryModification(int index) {
+        wd.findElements(By.xpath("//img[@alt='Edit']")).get(index).click();
     }
 
 
@@ -96,5 +100,19 @@ public class EntryHelper extends HelperBase {
 
     public boolean thereAnEntry() {
         return isElementPresent(By.name("entry"));
+    }
+
+    public List<EntryData> getEntryList() {
+        List<EntryData> entries = new ArrayList<EntryData>();
+        List<WebElement> elements = wd.findElements(By.xpath("//tr[@name=\"entry\"]"));
+        for (WebElement element : elements) {
+            List<WebElement> el = element.findElements(By.tagName("td"));
+            String lastname = el.get(1).getText();
+            String firstname = el.get(2).getText();
+            int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
+            EntryData entry = new EntryData(id, firstname, lastname);
+            entries.add(entry);
+        }
+        return entries;
     }
 }
