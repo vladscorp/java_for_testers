@@ -14,6 +14,9 @@ public class EntryData {
     private String work;
     private String allPhones;
     private String email;
+    private String email2;
+    private String email3;
+    private String allEmails;
     private String bday;
     private String bmonth;
     private String byear;
@@ -67,8 +70,20 @@ public class EntryData {
         return allPhones;
     }
 
+    public String getAllEmails() {
+        return allEmails;
+    }
+
     public String getEmail() {
         return email;
+    }
+
+    public String getEmail2() {
+        return email2;
+    }
+
+    public String getEmail3() {
+        return email3;
     }
 
     public String getBday() {
@@ -147,8 +162,23 @@ public class EntryData {
         return this;
     }
 
+    public EntryData withAllEmails(String allEmails) {
+        this.allEmails = allEmails;
+        return this;
+    }
+
     public EntryData withEmail(String email) {
         this.email = email;
+        return this;
+    }
+
+    public EntryData withEmail2(String email2) {
+        this.email2 = email2;
+        return this;
+    }
+
+    public EntryData withEmail3(String email3) {
+        this.email3 = email3;
         return this;
     }
 
