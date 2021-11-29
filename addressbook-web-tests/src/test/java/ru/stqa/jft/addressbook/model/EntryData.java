@@ -1,5 +1,7 @@
 package ru.stqa.jft.addressbook.model;
 
+import java.io.File;
+
 public class EntryData {
     private int id = Integer.MAX_VALUE;
     private String firstname;
@@ -21,6 +23,7 @@ public class EntryData {
     private String bmonth;
     private String byear;
     private String group;
+    private File photo;
 
     public int getId() {
         return id;
@@ -100,6 +103,10 @@ public class EntryData {
 
     public String getGroup() {
         return group;
+    }
+
+    public File getPhoto() {
+        return photo;
     }
 
     public EntryData withId(int id) {
@@ -199,6 +206,11 @@ public class EntryData {
 
     public EntryData withGroup(String group) {
         this.group = group;
+        return this;
+    }
+
+    public EntryData withPhoto(File photo) {
+        this.photo = photo;
         return this;
     }
 

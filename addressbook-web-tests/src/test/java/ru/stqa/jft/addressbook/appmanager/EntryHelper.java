@@ -64,7 +64,11 @@ public class EntryHelper extends HelperBase {
 
 
     public void returnToHomePage() {
-        click(By.linkText("home page"));
+        if (isElementPresent(By.linkText("home page"))) {
+            click(By.linkText("home page"));
+        } else {
+            click(By.linkText("home"));
+        }
     }
 
     public void submitEntryCreation() {
@@ -86,6 +90,7 @@ public class EntryHelper extends HelperBase {
         select(By.name("bday"), entryData.getBday());
         select(By.name("bmonth"), entryData.getBmonth());
         type(By.name("byear"), entryData.getByear());
+        attach(By.name("photo"), entryData.getPhoto());
         if (creation) {
             select(By.name("new_group"), entryData.getGroup());
         } else {
