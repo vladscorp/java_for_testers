@@ -11,6 +11,8 @@ public class EntryData {
     private String address;
     private String home;
     private String mobile;
+    private String work;
+    private String allPhones;
     private String email;
     private String bday;
     private String bmonth;
@@ -55,6 +57,14 @@ public class EntryData {
 
     public String getMobile() {
         return mobile;
+    }
+
+    public String getWork() {
+        return work;
+    }
+
+    public String getAllPhones() {
+        return allPhones;
     }
 
     public String getEmail() {
@@ -124,6 +134,16 @@ public class EntryData {
 
     public EntryData withMobile(String mobile) {
         this.mobile = mobile;
+        return this;
+    }
+
+    public EntryData withWork(String work) {
+        this.work = work;
+        return this;
+    }
+
+    public EntryData withAllPhones(String allPhones) {
+        this.allPhones = allPhones;
         return this;
     }
 

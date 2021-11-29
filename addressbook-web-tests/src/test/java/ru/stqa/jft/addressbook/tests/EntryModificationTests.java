@@ -22,7 +22,7 @@ public class EntryModificationTests  extends TestBase {
         if (app.entry().all().size() == 0) {
             app.entry().create(new EntryData().withFirstname("Ivan").withMiddlename("Aleksandrovich").withLastname("Petrov").withNickname("vanko")
                     .withTitle("title").withCompany("comp").withAddress("блаблабла очень длинный адрес 23").withHome("123345").withMobile("123156496879")
-                    .withEmail("wqer@qwe.ru").withBday("16").withBmonth("September").withByear("1980").withGroup("name"), true);
+                    .withWork("354332").withEmail("wqer@qwe.ru").withBday("16").withBmonth("September").withByear("1980").withGroup("name"), true);
         }
     }
 
@@ -32,7 +32,7 @@ public class EntryModificationTests  extends TestBase {
         EntryData modifiedEntry = before.iterator().next();
         EntryData entry = new EntryData().withId(modifiedEntry.getId()).withFirstname("Ivan").withMiddlename("Aleksandrovich").withLastname("Petrov").withNickname("vanko")
                 .withTitle("title").withCompany("comp").withAddress("блаблабла очень длинный адрес 23").withHome("123345").withMobile("123156496879")
-                .withEmail("wqer@qwe.ru").withBday("16").withBmonth("September").withByear("1980");
+                .withWork("38486").withEmail("wqer@qwe.ru").withBday("16").withBmonth("September").withByear("1980");
         app.entry().modify(entry);
         Entries after = app.entry().all();
         assertEquals(after.size(), before.size());

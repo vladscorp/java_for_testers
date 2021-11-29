@@ -81,6 +81,7 @@ public class EntryHelper extends HelperBase {
         type(By.name("address"), entryData.getAddress());
         type(By.name("home"), entryData.getHome());
         type(By.name("mobile"), entryData.getMobile());
+        type(By.name("work"), entryData.getWork());
         type(By.name("email"), entryData.getEmail());
         select(By.name("bday"), entryData.getBday());
         select(By.name("bmonth"), entryData.getBmonth());
@@ -132,13 +133,26 @@ public class EntryHelper extends HelperBase {
         List<WebElement> elements = wd.findElements(By.xpath("//tr[@name=\"entry\"]"));
         for (WebElement element : elements) {
             List<WebElement> el = element.findElements(By.tagName("td"));
+            int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
             String lastname = el.get(1).getText();
             String firstname = el.get(2).getText();
-            int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
-            EntryData entry = new EntryData().withId(id).withFirstname(firstname).withLastname(lastname);
+            String allPhones = el.get(5).getText();
+            EntryData entry = new EntryData().withId(id).withFirstname(firstname).withLastname(lastname)
+                    .withAllPhones(allPhones);
             entries.add(entry);
         }
         return entries;
     }
-    
+
+    public EntryData infoFromEditForm(EntryData entry) {
+        initEntryModificationById(entry.getId());
+        String firstname = wd.findElement(By.name("firstname")).getAttribute("value");
+        String lastname = wd.findElement(By.name("lastname")).getAttribute("value");
+        String home = wd.findElement(By.name("home")).getAttribute("value");
+        String mobile = wd.findElement(By.name("mobile")).getAttribute("value");
+        String work = wd.findElement(By.name("work")).getAttribute("value");
+        wd.navigate().back();
+        return new EntryData().withId(entry.getId()).withFirstname(firstname).withLastname(lastname)
+                .withHome(home).withMobile(mobile).withWork(work);
+    }
 }

@@ -23,7 +23,7 @@ public class EntryCreationTests extends TestBase {
     Entries before = app.entry().all();
     EntryData entry = new EntryData().withFirstname("Ivan").withMiddlename("Aleksandrovich").withLastname("Petrov").withNickname("vanko")
             .withTitle("title").withCompany("comp").withAddress("блаблабла очень длинный адрес 23").withHome("123345").withMobile("123156496879")
-            .withEmail("wqer@qwe.ru").withBday("16").withBmonth("September").withByear("1980").withGroup("name");
+            .withWork("65464").withEmail("wqer@qwe.ru").withBday("16").withBmonth("September").withByear("1980").withGroup("name");
     app.entry().create(entry, true);
     Set<EntryData> after = app.entry().all();
     assertEquals(after.size(), before.size()+1);
