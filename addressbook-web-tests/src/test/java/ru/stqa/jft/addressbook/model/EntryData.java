@@ -24,11 +24,14 @@ public class EntryData {
     private String email2;
     private String email3;
     private String allEmails;
+    @Expose
     private String bday;
+    @Expose
     private String bmonth;
+    @Expose
     private String byear;
     private String group;
-    private File photo;
+    //private File photo;
 
     public int getId() {
         return id;
@@ -109,11 +112,15 @@ public class EntryData {
     public String getGroup() {
         return group;
     }
-
+/*
     public File getPhoto() {
-        return photo;
+        if (photo != null) {
+            return photo;
+        } else {
+            return null;
+        }
     }
-
+*/
     public EntryData withId(int id) {
         this.id = id;
         return this;
@@ -213,11 +220,11 @@ public class EntryData {
         this.group = group;
         return this;
     }
-
+/*
     public EntryData withPhoto(File photo) {
         this.photo = photo;
         return this;
-    }
+    }*/
 
     @Override
     public String toString() {

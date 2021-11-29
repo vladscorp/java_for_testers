@@ -52,7 +52,8 @@ public class EntryDataGenerator {
         for (int i = 0; i < count; i++) {
             entries.add(new EntryData().withFirstname(String.format("firstname %s", i))
                     .withLastname(String.format("lastname %s", i))
-                    .withMiddlename(String.format("middlename %s", i)));
+                    .withMiddlename(String.format("middlename %s", i))
+                    .withBday("1").withBmonth("September").withByear("2000"));
         }
         return entries;
     }

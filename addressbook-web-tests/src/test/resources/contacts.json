@@ -2,16 +2,25 @@
   {
     "firstname": "firstname 0",
     "middlename": "middlename 0",
-    "lastname": "lastname 0"
+    "lastname": "lastname 0",
+    "bday": "1",
+    "bmonth": "September",
+    "byear": "2000"
   },
   {
     "firstname": "firstname 1",
     "middlename": "middlename 1",
-    "lastname": "lastname 1"
+    "lastname": "lastname 1",
+    "bday": "1",
+    "bmonth": "September",
+    "byear": "2000"
   },
   {
     "firstname": "firstname 2",
     "middlename": "middlename 2",
-    "lastname": "lastname 2"
+    "lastname": "lastname 2",
+    "bday": "1",
+    "bmonth": "September",
+    "byear": "2000"
   }
 ]

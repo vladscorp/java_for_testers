@@ -90,9 +90,11 @@ public class EntryHelper extends HelperBase {
         select(By.name("bday"), entryData.getBday());
         select(By.name("bmonth"), entryData.getBmonth());
         type(By.name("byear"), entryData.getByear());
-        attach(By.name("photo"), entryData.getPhoto());
+        //attach(By.name("photo"), entryData.getPhoto());
         if (creation) {
-            select(By.name("new_group"), entryData.getGroup());
+            if (entryData.getGroup() != null) {
+                select(By.name("new_group"), entryData.getGroup());
+            }
         } else {
             Assert.assertFalse(isElementPresent(By.name("new_group")));
         }
