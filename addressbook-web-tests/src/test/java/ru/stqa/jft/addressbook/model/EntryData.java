@@ -1,10 +1,13 @@
 package ru.stqa.jft.addressbook.model;
 
 import com.google.gson.annotations.Expose;
+import org.hibernate.annotations.ManyToAny;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.io.File;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "addressbook")
@@ -78,12 +81,14 @@ public class EntryData {
     @Transient
     private String byear;
 
-    @Transient
-    private String group;
-
     //@Column(name="photo")
     //@Type(type = "text")
     //private String photo;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name="address_in_groups",
+            joinColumns = @JoinColumn(name = "id"), inverseJoinColumns = @JoinColumn(name = "group_id"))
+    private Set<GroupData> groups = new HashSet<>();
 
     public int getId() {
         return id;
@@ -161,9 +166,10 @@ public class EntryData {
         return byear;
     }
 
-    public String getGroup() {
-        return group;
+    public Groups getGroups() {
+        return new Groups(groups);
     }
+
 /*
     public File getPhoto() {
         if (photo != null) {
@@ -268,11 +274,7 @@ public class EntryData {
         return this;
     }
 
-    public EntryData withGroup(String group) {
-        this.group = group;
-        return this;
-    }
-/*
+    /*
     public EntryData withPhoto(File photo) {
         this.photo = photo.getPath();
         return this;
@@ -305,5 +307,10 @@ public class EntryData {
         result = 31 * result + (firstname != null ? firstname.hashCode() : 0);
         result = 31 * result + (lastname != null ? lastname.hashCode() : 0);
         return result;
+    }
+
+    public EntryData inGroup(GroupData group) {
+        groups.add(group);
+        return this;
     }
 }

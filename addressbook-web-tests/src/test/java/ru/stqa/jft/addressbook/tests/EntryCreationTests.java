@@ -5,10 +5,13 @@ import org.hamcrest.CoreMatchers;
 import org.hamcrest.MatcherAssert;
 import org.openqa.selenium.json.TypeToken;
 import org.testng.Assert;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import ru.stqa.jft.addressbook.model.Entries;
 import ru.stqa.jft.addressbook.model.EntryData;
+import ru.stqa.jft.addressbook.model.GroupData;
+import ru.stqa.jft.addressbook.model.Groups;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -40,21 +43,32 @@ public class EntryCreationTests extends TestBase {
     return entries.stream().map((g) -> new Object[] {g}).collect(Collectors.toList()).iterator();
   }
 
+  @BeforeMethod
+  public void ensurePreconditions() {
+    if (app.db().groups().size() == 0) {
+      app.goTo().groupPage();
+      app.group().create(new GroupData().withName("testGroup"));
+    }
+  }
+
   @Test(dataProvider = "validEntriesFromJson")
   public void testEntryCreation(EntryData entry) throws Exception {
-    app.goTo().homePage();
     Entries before = app.db().entries();
+    Groups groups = app.db().groups();
+    entry.inGroup(groups.iterator().next());
    /* File photo = new File("src/test/resources/doors.jpg");
     EntryData entry = new EntryData().withFirstname("Ivan").withMiddlename("Aleksandrovich").withLastname("Petrov").withNickname("vanko")
             .withTitle("title").withCompany("comp").withAddress("блаблабла очень длинный адрес 23").withHome("123345").withMobile("123156496879")
             .withWork("65464").withEmail("wqer@qwe.ru").withBday("16").withBmonth("September").withByear("1980").withGroup("name")
             .withPhoto(photo);*/
+    app.goTo().homePage();
     app.entry().create(entry, true);
     Set<EntryData> after = app.db().entries();
     assertEquals(after.size(), before.size()+1);
 
     assertThat(after, equalTo(
             before.withAdded(entry.withId(after.stream().mapToInt((e) -> e.getId()).max().getAsInt()))));
+    verifyEntryListInUI();
   }
 
 }
