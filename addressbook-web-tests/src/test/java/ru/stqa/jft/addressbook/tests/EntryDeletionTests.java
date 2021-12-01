@@ -21,8 +21,8 @@ public class EntryDeletionTests extends TestBase {
 
   @BeforeMethod
   public void ensurePreconditions() {
-    app.goTo().homePage();
-    if (app.entry().all().size() == 0) {
+    if (app.db().entries().size() == 0) {
+      app.goTo().homePage();
       app.entry().create(new EntryData().withFirstname("Ivan").withMiddlename("Aleksandrovich").withLastname("Petrov").withNickname("vanko")
               .withTitle("title").withCompany("comp").withAddress("блаблабла очень длинный адрес 23").withHome("123345").withMobile("123156496879")
               .withWork("554665").withEmail("wqer@qwe.ru").withBday("16").withBmonth("September").withByear("1980").withGroup("name"), true);
@@ -31,11 +31,12 @@ public class EntryDeletionTests extends TestBase {
 
   @Test(enabled = true)
   public void testEntryDeletion() throws Exception {
-    Entries before = app.entry().all();
+    Entries before = app.db().entries();
     EntryData deletedEntry = before.iterator().next();
+    app.goTo().homePage();
     app.entry().delete(deletedEntry);
     app.goTo().homePage();
-    Entries after = app.entry().all();
+    Entries after = app.db().entries();
     assertEquals(after.size(), before.size()-1);
     assertThat(after, equalTo(before.without(deletedEntry)));
 

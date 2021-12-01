@@ -43,14 +43,14 @@ public class EntryCreationTests extends TestBase {
   @Test(dataProvider = "validEntriesFromJson")
   public void testEntryCreation(EntryData entry) throws Exception {
     app.goTo().homePage();
-    Entries before = app.entry().all();
+    Entries before = app.db().entries();
    /* File photo = new File("src/test/resources/doors.jpg");
     EntryData entry = new EntryData().withFirstname("Ivan").withMiddlename("Aleksandrovich").withLastname("Petrov").withNickname("vanko")
             .withTitle("title").withCompany("comp").withAddress("блаблабла очень длинный адрес 23").withHome("123345").withMobile("123156496879")
             .withWork("65464").withEmail("wqer@qwe.ru").withBday("16").withBmonth("September").withByear("1980").withGroup("name")
             .withPhoto(photo);*/
     app.entry().create(entry, true);
-    Set<EntryData> after = app.entry().all();
+    Set<EntryData> after = app.db().entries();
     assertEquals(after.size(), before.size()+1);
 
     assertThat(after, equalTo(
