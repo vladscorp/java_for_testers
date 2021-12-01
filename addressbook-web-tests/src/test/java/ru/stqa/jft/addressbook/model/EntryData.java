@@ -1,37 +1,89 @@
 package ru.stqa.jft.addressbook.model;
 
 import com.google.gson.annotations.Expose;
+import org.hibernate.annotations.Type;
 
+import javax.persistence.*;
 import java.io.File;
 
+@Entity
+@Table(name = "addressbook")
 public class EntryData {
+
+    @Id
+    @Column(name = "id")
     private int id = Integer.MAX_VALUE;
+
     @Expose
+    @Column(name = "firstname")
     private String firstname;
+
     @Expose
+    @Column(name = "middlename")
     private String middlename;
+
     @Expose
+    @Column(name = "lastname")
     private String lastname;
+
+    @Column(name = "nickname")
     private String nickname;
+
+    @Column(name = "title")
     private String title;
+
+    @Column(name = "company")
     private String company;
+
+    @Column(name = "address")
+    @Type(type = "text")
     private String address;
+
+    @Column(name = "home")
+    @Type(type = "text")
     private String home;
+
+    @Column(name = "mobile")
+    @Type(type = "text")
     private String mobile;
+
+    @Column(name = "work")
+    @Type(type = "text")
     private String work;
+
+    @Transient
     private String allPhones;
+
+    @Column(name = "email")
+    @Type(type = "text")
     private String email;
+
+    @Column(name = "email2")
+    @Type(type = "text")
     private String email2;
+
+    @Column(name = "email3")
+    @Type(type = "text")
     private String email3;
+
+    @Transient
     private String allEmails;
     @Expose
+    @Transient
     private String bday;
     @Expose
+    @Transient
     private String bmonth;
     @Expose
+    @Transient
     private String byear;
+
+    @Transient
     private String group;
-    //private File photo;
+
+    //@Column(name="photo")
+    //@Type(type = "text")
+    //private String photo;
 
     public int getId() {
         return id;
@@ -115,7 +167,7 @@ public class EntryData {
 /*
     public File getPhoto() {
         if (photo != null) {
-            return photo;
+            return new File(photo);
         } else {
             return null;
         }
@@ -222,7 +274,7 @@ public class EntryData {
     }
 /*
     public EntryData withPhoto(File photo) {
-        this.photo = photo;
+        this.photo = photo.getPath();
         return this;
     }*/
 
