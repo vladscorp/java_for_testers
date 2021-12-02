@@ -7,6 +7,7 @@ import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import ru.stqa.jft.addressbook.model.Entries;
 import ru.stqa.jft.addressbook.model.EntryData;
+import ru.stqa.jft.addressbook.model.GroupData;
 import ru.stqa.jft.addressbook.model.Groups;
 
 import java.util.ArrayList;
@@ -38,7 +39,7 @@ public class EntryHelper extends HelperBase {
         wd.findElements(By.name("selected[]")).get(index).click();
     }
 
-    private void selectEntryById(int id) {
+    public void selectEntryById(int id) {
         wd.findElement(By.cssSelector("input[id='" + id + "']")).click();
     }
 
@@ -169,4 +170,44 @@ public class EntryHelper extends HelperBase {
         return new EntryData().withId(entry.getId()).withFirstname(firstname).withLastname(lastname).withAddress(address)
                 .withHome(home).withMobile(mobile).withWork(work).withEmail(email).withEmail2(email2).withEmail3(email3);
     }
+
+    public void selectGroup(int id) {
+      //  click(By.name("to_group"));
+        click(By.xpath("//select[@name=\"to_group\"]/option[@value=\"" + id + "\"]"));
+    }
+
+    public void selectGroupById(EntryData entry) {
+        click(By.name("group"));
+        click(By.xpath("//select[@name=\"group\"]/option[@value=\"" + entry.getGroups().iterator().next().getId() + "\"]"));
+    }
+
+    public void selectGroupById(String id) {
+        click(By.name("group"));
+        click(By.xpath("//select[@name=\"group\"]/option[@value=\"" + id + "\"]"));
+    }
+
+    public void goToGroupPage(String name) {
+        click(By.linkText("group page \"" + name + "\""));
+    }
+
+    public void selectWithoutGroups() {
+        select(By.name("group"), "[none]");
+    }
+
+    public void addToGroup() {
+        click(By.name("add"));
+    }
+
+    public void removeFromGroup() {
+        click(By.name("remove"));
+    }
+
+    public void addContactToGroup(EntryData entry, GroupData group, String id) {
+        selectGroupById(id);
+        selectEntryById(entry.getId());
+        selectGroup(group.getId());
+        addToGroup();
+        goToGroupPage(group.getName());
+    }
+
 }

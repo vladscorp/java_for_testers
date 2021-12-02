@@ -10,6 +10,7 @@ import ru.stqa.jft.addressbook.model.EntryData;
 import ru.stqa.jft.addressbook.model.GroupData;
 import ru.stqa.jft.addressbook.model.Groups;
 
+import java.sql.Statement;
 import java.util.List;
 
 public class DbHelper {
@@ -27,7 +28,7 @@ public class DbHelper {
     public Groups groups() {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
-        List<GroupData> result = session.createQuery( "from GroupData").list();
+        List<GroupData> result = session.createQuery( "from GroupData where deprecated = '0000-00-00'").list();
         session.getTransaction().commit();
         session.close();
         return new Groups(result);
@@ -41,5 +42,6 @@ public class DbHelper {
         session.close();
         return new Entries(result);
     }
+
 
 }
