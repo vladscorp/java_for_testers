@@ -43,5 +43,12 @@ public class DbHelper {
         return new Entries(result);
     }
 
-
+    public EntryData entriesById(int id) {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        List<EntryData> result = session.createQuery( "from EntryData where deprecated = '0000-00-00' and id=" + id).list();
+        session.getTransaction().commit();
+        session.close();
+        return new Entries(result).iterator().next();
+    }
 }

@@ -8,12 +8,8 @@ import org.testng.Assert;
 import ru.stqa.jft.addressbook.model.Entries;
 import ru.stqa.jft.addressbook.model.EntryData;
 import ru.stqa.jft.addressbook.model.GroupData;
-import ru.stqa.jft.addressbook.model.Groups;
 
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import static org.testng.Assert.assertTrue;
 
@@ -132,10 +128,6 @@ public class EntryHelper extends HelperBase {
     }
 
 
-    public boolean thereAnEntry() {
-        return isElementPresent(By.name("entry"));
-    }
-
 
     public Entries all() {
         Entries entries = new Entries();
@@ -172,14 +164,9 @@ public class EntryHelper extends HelperBase {
     }
 
     public void selectGroup(int id) {
-      //  click(By.name("to_group"));
         click(By.xpath("//select[@name=\"to_group\"]/option[@value=\"" + id + "\"]"));
     }
 
-    public void selectGroupById(EntryData entry) {
-        click(By.name("group"));
-        click(By.xpath("//select[@name=\"group\"]/option[@value=\"" + entry.getGroups().iterator().next().getId() + "\"]"));
-    }
 
     public void selectGroupById(String id) {
         click(By.name("group"));
@@ -190,9 +177,6 @@ public class EntryHelper extends HelperBase {
         click(By.linkText("group page \"" + name + "\""));
     }
 
-    public void selectWithoutGroups() {
-        select(By.name("group"), "[none]");
-    }
 
     public void addToGroup() {
         click(By.name("add"));

@@ -5,6 +5,11 @@ import org.testng.annotations.Test;
 import ru.stqa.jft.addressbook.model.Entries;
 import ru.stqa.jft.addressbook.model.EntryData;
 import ru.stqa.jft.addressbook.model.GroupData;
+import ru.stqa.jft.addressbook.model.Groups;
+
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.testng.Assert.assertEquals;
 
 public class RemoveFromGroupTest extends TestBase{
 
@@ -27,6 +32,7 @@ public class RemoveFromGroupTest extends TestBase{
     public void testRemoveFromGroup() {
         Entries before = app.db().entries();
         Entries entries = new Entries();
+        Groups groups = app.db().groups();
         for (EntryData en : before) {
             if (en.getGroups().size()!=0) {
                 entries.add(en);
@@ -36,20 +42,29 @@ public class RemoveFromGroupTest extends TestBase{
 
         if (entries.size()==0) {
             String id="[none]";
-            GroupData group = app.db().groups().iterator().next();
+            GroupData group = groups.iterator().next();
             entry.inGroup(group);
 
             app.goTo().homePage();
             app.entry().addContactToGroup(entry, group, id);
         }
 
-        GroupData group = entry.getGroups().iterator().next();
+        Groups includedGrBefore = entry.getGroups();
+        GroupData group = includedGrBefore.iterator().next();
         app.goTo().homePage();
-        //app.entry().selectGroupById(entry);
         app.entry().selectGroupById("" + group.getId());
         app.entry().selectEntryById(entry.getId());
         app.entry().removeFromGroup();
         app.entry().goToGroupPage(group.getName());
-       // app.entry().goToGroupPage(entry);
+
+        assertEquals(app.db().entriesById(entry.getId()).getGroups().size(), includedGrBefore.size()-1);
+        assertThat(app.db().entriesById(entry.getId()).getGroups(), equalTo(includedGrBefore.without(group)));
+
+        Entries afterEn = app.db().entries();
+        assertEquals(afterEn.size(), before.size());
+        assertThat(afterEn, equalTo(before));
+
+        Groups afterGr = app.db().groups();
+        assertThat(afterGr, equalTo(groups));
     }
 }

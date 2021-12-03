@@ -7,6 +7,10 @@ import ru.stqa.jft.addressbook.model.EntryData;
 import ru.stqa.jft.addressbook.model.GroupData;
 import ru.stqa.jft.addressbook.model.Groups;
 
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.testng.Assert.assertEquals;
+
 public class AddContactToGroupTest extends TestBase{
 
     @BeforeMethod
@@ -30,34 +34,49 @@ public class AddContactToGroupTest extends TestBase{
         Groups groups = app.db().groups();
         EntryData entry = before.iterator().next();
         GroupData group = new GroupData();
+        Groups includedGrBefore = entry.getGroups();
         //проверка на привязку контакта сразу ко всем группам
-        if (groups.size()==entry.getGroups().size()) {
+        if (groups.size()==includedGrBefore.size()) {
             app.goTo().groupPage();
             app.group().create(new GroupData().withName("testGroup"));
+
+            assertThat(app.db().groups().size(), equalTo(groups.size()+1));
+            groups = app.db().groups();
         }
         // проверка на присутствие в выбранной группе
         for (GroupData g : groups) {
             int i=0;
-            for (GroupData e : entry.getGroups()) {
+            for (GroupData e : includedGrBefore) {
                 if (g.equals(e)) {
                     break;
                 } else i++;
             }
-            if (i == entry.getGroups().size()) {
+            if (i == includedGrBefore.size()) {
                 group = g;
                 break;
             }
         }
-        //пришлось сортировать по группам, т.к. в списке All после привязки открывается пустая страница
+        //пришлось зайти в отображение по группам, т.к. в списке All после привязки открывается пустая страница
         String id;
-        if (entry.getGroups().size()==0) {
+        if (includedGrBefore.size()==0) {
             id="[none]";
         } else {
-            id = ("" + entry.getGroups().iterator().next().getId());
+            id = ("" + includedGrBefore.iterator().next().getId());
         }
         entry.inGroup(group);
         app.goTo().homePage();
         app.entry().addContactToGroup(entry, group, id);
+
+        assertEquals(includedGrBefore.size(), entry.getGroups().size()-1);
+        assertThat(app.db().entriesById(entry.getId()).getGroups(), equalTo(includedGrBefore.withAdded(group)));
+
+        Entries afterEn = app.db().entries();
+        assertEquals(afterEn.size(), before.size());
+        assertThat(afterEn, equalTo(before));
+
+        Groups afterGr = app.db().groups();
+        assertEquals(afterGr.size(), groups.size());
+        assertThat(afterGr, equalTo(groups));
     }
 
 
