@@ -1,6 +1,6 @@
 package ru.stqa.jft.mantis.model;
 
-public class Issue {
+public class IssueSoap {
     private int id;
     private String summary;
     private String description;
@@ -11,7 +11,7 @@ public class Issue {
         return id;
     }
 
-    public Issue withId(int id) {
+    public IssueSoap withId(int id) {
         this.id = id;
         return this;
     }
@@ -20,7 +20,7 @@ public class Issue {
         return summary;
     }
 
-    public Issue withSummary(String summary) {
+    public IssueSoap withSummary(String summary) {
         this.summary = summary;
         return this;
     }
@@ -29,7 +29,7 @@ public class Issue {
         return description;
     }
 
-    public Issue withDescription(String description) {
+    public IssueSoap withDescription(String description) {
         this.description = description;
         return this;
     }
@@ -38,7 +38,7 @@ public class Issue {
         return project;
     }
 
-    public Issue withProject(Project project) {
+    public IssueSoap withProject(Project project) {
         this.project = project;
         return this;
     }
@@ -47,8 +47,9 @@ public class Issue {
         return name;
     }
 
-    public Issue withName(String name) {
+    public IssueSoap withName(String name) {
         this.name = name;
         return this;
     }
+
 }
