@@ -32,22 +32,26 @@ public class RemoveFromGroupTest extends TestBase{
     public void testRemoveFromGroup() {
         Entries before = app.db().entries();
         Entries entries = new Entries();
+        EntryData entry = new EntryData();
         Groups groups = app.db().groups();
         for (EntryData en : before) {
             if (en.getGroups().size()!=0) {
                 entries.add(en);
             }
         }
-        EntryData entry = entries.iterator().next();
 
         if (entries.size()==0) {
             String id="[none]";
             GroupData group = groups.iterator().next();
+            entry = before.iterator().next();
             entry.inGroup(group);
 
             app.goTo().homePage();
             app.entry().addContactToGroup(entry, group, id);
+        } else {
+            entry = entries.iterator().next();
         }
+
 
         Groups includedGrBefore = entry.getGroups();
         GroupData group = includedGrBefore.iterator().next();
